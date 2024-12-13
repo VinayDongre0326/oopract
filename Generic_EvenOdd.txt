@@ -1,0 +1,89 @@
+package assign7;
+//class name GenericCollection
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class GenericCollection {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking input for numbers
+        List<Integer> numbers = new ArrayList<>();
+        System.out.println("Enter numbers (enter a non-number to stop):");
+        while (scanner.hasNextInt()) {
+            numbers.add(scanner.nextInt());
+        }
+        scanner.nextLine();  // Consume the non-number input
+
+        System.out.println("Numbers: " + numbers);
+        System.out.println("Count of even numbers: " + countByProperty(numbers, GenericCollection::isEven));
+        System.out.println("Count of odd numbers: " + countByProperty(numbers, GenericCollection::isOdd));
+        System.out.println("Count of prime numbers: " + countByProperty(numbers, GenericCollection::isPrime));
+
+        // Taking input for words
+        List<String> words = new ArrayList<>();
+        System.out.println("Enter words (enter 'exit' to stop):");
+        while (true) {
+            String word = scanner.nextLine();
+            if (word.equalsIgnoreCase("exit")) {
+                break;
+            }
+            words.add(word);
+        }
+
+        System.out.println("Words: " + words);
+        System.out.println("Count of palindromes: " + countByProperty(words, GenericCollection::isPalindrome));
+
+        scanner.close();
+    }
+
+    // Generic method to count elements based on a property
+    public static <T> int countByProperty(List<T> collection, Property<T> property) {
+        int count = 0;
+        for (T element : collection) {
+            if (property.test(element)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Functional interface for property testing
+    @FunctionalInterface
+    interface Property<T> {
+        boolean test(T t);
+    }
+
+    // Property: Check if a number is even
+    public static boolean isEven(Integer number) {
+        return number % 2 == 0;
+    }
+
+    // Property: Check if a number is odd
+    public static boolean isOdd(Integer number) {
+        return number % 2 != 0;
+    }
+
+    // Property: Check if a number is prime
+    public static boolean isPrime(Integer number) {
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+
+    // Property: Check if a string is a palindrome
+    public static boolean isPalindrome(String str) {
+        int left = 0, right = str.length() - 1;
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}

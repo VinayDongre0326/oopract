@@ -1,0 +1,71 @@
+package assign1;
+//class name Main
+import java.util.Scanner;
+
+ class Complex {
+    float real;
+    float imaginary;
+
+    public Complex() {
+        real = 0;
+        imaginary = 0;
+    }
+
+    public Complex(float real, float imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    public Complex add(Complex c) {
+        return new Complex(this.real + c.real, this.imaginary + c.imaginary);
+    }
+
+    public Complex subtract(Complex c) {
+        return new Complex(this.real - c.real, this.imaginary - c.imaginary);
+    }
+
+    public Complex multiply(Complex c) {
+        float r = this.real * c.real - this.imaginary * c.imaginary;
+        float i = this.real * c.imaginary + this.imaginary * c.real;
+        return new Complex(r, i);
+    }
+
+    public void display() {
+        System.out.println(real + " + " + imaginary + "i");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter real and imaginary parts of the first complex number:");
+        float real1 = scanner.nextFloat();
+        float imaginary1 = scanner.nextFloat();
+        Complex c1 = new Complex(real1, imaginary1);
+
+        System.out.println("Enter real and imaginary parts of the second complex number:");
+        float real2 = scanner.nextFloat();
+        float imaginary2 = scanner.nextFloat();
+        Complex c2 = new Complex(real2, imaginary2);
+
+        Complex sum = c1.add(c2);
+        Complex diff = c1.subtract(c2);
+        Complex product = c1.multiply(c2);
+
+        System.out.print("First Complex Number: ");
+        c1.display();
+        System.out.print("Second Complex Number: ");
+        c2.display();
+        System.out.print("Sum: ");
+        sum.display();
+        System.out.print("Difference: ");
+        diff.display();
+        System.out.print("Product: ");
+        product.display();
+
+        scanner.close();
+    }
+}
+
+

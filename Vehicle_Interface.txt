@@ -1,0 +1,176 @@
+package assign5;
+//class name Main
+import java.util.Scanner;
+
+
+interface Vehicle {
+ void changeGear(int gear);
+ void speedUp(int increment);
+ void applyBrakes(int decrement);
+ void displayStatus();
+}
+
+//Bicycle class implementing Vehicle interface
+class Bicycle implements Vehicle {
+ private int speed = 0;
+ private int gear = 1;
+
+ @Override
+ public void changeGear(int gear) {
+     this.gear = gear;
+     System.out.println("Bicycle gear changed to: " + this.gear);
+ }
+
+ @Override
+ public void speedUp(int increment) {
+     speed += increment;
+     System.out.println("Bicycle speed increased by " + increment + " to " + speed + " km/h");
+ }
+
+ @Override
+ public void applyBrakes(int decrement) {
+     speed -= decrement;
+     if (speed < 0) speed = 0;
+     System.out.println("Bicycle speed decreased by " + decrement + " to " + speed + " km/h");
+ }
+
+ @Override
+ public void displayStatus() {
+     System.out.println("Bicycle [Speed: " + speed + " km/h, Gear: " + gear + "]");
+ }
+}
+
+//Bike class implementing Vehicle interface
+class Bike implements Vehicle {
+ private int speed = 0;
+ private int gear = 1;
+
+ @Override
+ public void changeGear(int gear) {
+     this.gear = gear;
+     System.out.println("Bike gear changed to: " + this.gear);
+ }
+
+ @Override
+ public void speedUp(int increment) {
+     speed += increment;
+     System.out.println("Bike speed increased by " + increment + " to " + speed + " km/h");
+ }
+
+ @Override
+ public void applyBrakes(int decrement) {
+     speed -= decrement;
+     if (speed < 0) speed = 0;
+     System.out.println("Bike speed decreased by " + decrement + " to " + speed + " km/h");
+ }
+
+ @Override
+ public void displayStatus() {
+     System.out.println("Bike [Speed: " + speed + " km/h, Gear: " + gear + "]");
+ }
+}
+
+//Car class implementing Vehicle interface
+class Car implements Vehicle {
+ private int speed = 0;
+ private int gear = 1;
+
+ @Override
+ public void changeGear(int gear) {
+     this.gear = gear;
+     System.out.println("Car gear changed to: " + this.gear);
+ }
+
+ @Override
+ public void speedUp(int increment) {
+     speed += increment;
+     System.out.println("Car speed increased by " + increment + " to " + speed + " km/h");
+ }
+
+ @Override
+ public void applyBrakes(int decrement) {
+     speed -= decrement;
+     if (speed < 0) speed = 0;
+     System.out.println("Car speed decreased by " + decrement + " to " + speed + " km/h");
+ }
+
+ @Override
+ public void displayStatus() {
+     System.out.println("Car [Speed: " + speed + " km/h, Gear: " + gear + "]");
+ }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = null; // Declare scanner outside try
+        try {
+            scanner = new Scanner(System.in);
+
+            System.out.println("Choose a vehicle:");
+            System.out.println("1. Bicycle");
+            System.out.println("2. Bike");
+            System.out.println("3. Car");
+
+            int choice = scanner.nextInt();
+            Vehicle vehicle;
+
+            // Create the appropriate vehicle instance
+            switch (choice) {
+                case 1:
+                    vehicle = new Bicycle();
+                    break;
+                case 2:
+                    vehicle = new Bike();
+                    break;
+                case 3:
+                    vehicle = new Car();
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+                    return;
+            }
+
+            while (true) {
+                System.out.println("\nChoose an action:");
+                System.out.println("1. Change Gear");
+                System.out.println("2. Speed Up");
+                System.out.println("3. Apply Brakes");
+                System.out.println("4. Display Status");
+                System.out.println("5. Exit");
+                int action = scanner.nextInt();
+
+                switch (action) {
+                    case 1:
+                        System.out.println("Enter new gear:");
+                        int gear = scanner.nextInt();
+                        vehicle.changeGear(gear);
+                        break;
+                    case 2:
+                        System.out.println("Enter speed increment:");
+                        int increment = scanner.nextInt();
+                        vehicle.speedUp(increment);
+                        break;
+                    case 3:
+                        System.out.println("Enter speed decrement:");
+                        int decrement = scanner.nextInt();
+                        vehicle.applyBrakes(decrement);
+                        break;
+                    case 4:
+                        vehicle.displayStatus();
+                        break;
+                    case 5:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid action!");
+                }
+            }
+        } finally {
+            if (scanner != null) {
+                scanner.close(); // Ensure the scanner is closed
+                System.out.println("Scanner closed.");
+            }
+        }
+    }
+}

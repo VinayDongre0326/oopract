@@ -1,0 +1,107 @@
+package assign9;
+//class name BankingSystem 
+import java.util.Scanner;
+
+class BankAccount {
+ private String accountHolderName;
+ private String accountNumber;
+ private double balance;
+ private double dailyWithdrawalLimit;
+
+ public BankAccount(String accountHolderName, String accountNumber, double initialDeposit, double dailyWithdrawalLimit) {
+     this.accountHolderName = accountHolderName;
+     this.accountNumber = accountNumber;
+     this.balance = initialDeposit;
+     this.dailyWithdrawalLimit = dailyWithdrawalLimit;
+ }
+
+ public void deposit(double amount) {
+     if (amount > 0) {
+         balance += amount;
+         System.out.println("deposit successful. new balance: " + balance);
+     } else {
+         System.out.println("invalid deposit amount.");
+     }
+ }
+
+ 
+ public void withdraw(double amount) {
+     if (amount > 0 && amount <= dailyWithdrawalLimit && amount <= balance) {
+         balance -= amount;
+         System.out.println("withdrawal successful. remaining balance: " + balance);
+     } else if (amount > dailyWithdrawalLimit) {
+         System.out.println("withdrawal amount exceeds daily limit of: " + dailyWithdrawalLimit);
+     } else if (amount > balance) {
+         System.out.println("insufficient balance.");
+     } else {
+         System.out.println("invalid withdrawal amount.");
+     }
+ }
+
+ 
+ public void checkBalance() {
+     System.out.println("current balance: " + balance);
+ }
+
+
+ public void displayAccountInfo() {
+     System.out.println("account holder Name: " + accountHolderName);
+     System.out.println("account number: " + accountNumber);
+     System.out.println("balance: " + balance);
+ }
+}
+
+public class BankingSystem {
+ public static void main(String[] args) {
+     Scanner scanner = new Scanner(System.in);
+
+     
+     System.out.print("enter account holder name: ");
+     String name = scanner.nextLine();
+     System.out.print("enter account number: ");
+     String accountNumber = scanner.nextLine();
+     System.out.print("enter initial deposit: ");
+     double initialDeposit = scanner.nextDouble();
+     System.out.print("enter daily withdrawal limit: ");
+     double dailyLimit = scanner.nextDouble();
+
+     BankAccount account = new BankAccount(name, accountNumber, initialDeposit, dailyLimit);
+
+     
+     while (true) {
+         System.out.println("\nchoose an operation:");
+         System.out.println("1. deposit money");
+         System.out.println("2. withdraw money");
+         System.out.println("3. check balance");
+         System.out.println("4. display account information");
+         System.out.println("5. exit");
+         System.out.print("enter your choice: ");
+         int choice = scanner.nextInt();
+
+         switch (choice) {
+             case 1:
+                 System.out.print("enter amount to deposit: ");
+                 double depositAmount = scanner.nextDouble();
+                 account.deposit(depositAmount);
+                 break;
+             case 2:
+                 System.out.print("enter amount to withdraw: ");
+                 double withdrawAmount = scanner.nextDouble();
+                 account.withdraw(withdrawAmount);
+                 break;
+             case 3:
+                 account.checkBalance();
+                 break;
+             case 4:
+                 account.displayAccountInfo();
+                 break;
+             case 5:
+                 System.out.println("thank you");
+                 scanner.close();
+                 return;
+             default:
+                 System.out.println("invalid choice.");
+         }
+     }
+ }
+}

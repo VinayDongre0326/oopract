@@ -1,0 +1,67 @@
+package assign4;
+//class name Main
+import java.util.Scanner;
+
+abstract class Shape {
+    protected double dimension1;
+    protected double dimension2;
+
+    public void inputData(double d1, double d2) {
+        this.dimension1 = d1;
+        this.dimension2 = d2;
+    }
+
+    abstract public double computeArea();
+}
+
+class Triangle extends Shape {
+    @Override
+    public double computeArea() {
+        return 0.5 * dimension1 * dimension2; 
+    }
+}
+
+class Rectangle extends Shape {
+    @Override
+    public double computeArea() {
+        return dimension1 * dimension2; 
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Shape shape;
+
+        System.out.println("choose a shape to calculate area:");
+        System.out.println("1. triangle");
+        System.out.println("2. rectangle");
+        int choice = scanner.nextInt();
+
+        if (choice == 1) {
+            shape = new Triangle();
+            System.out.println("enter base of the triangle:");
+            double base = scanner.nextDouble();
+            System.out.println("enter height of the triangle:");
+            double height = scanner.nextDouble();
+            shape.inputData(base, height);
+        } else if (choice == 2) {
+          
+            shape = new Rectangle();
+            System.out.println("enter length of the rectangle:");
+            double length = scanner.nextDouble();
+            System.out.println("enter breadth of the rectangle:");
+            double breadth = scanner.nextDouble();
+            shape.inputData(length, breadth);
+        } else {
+            System.out.println("invalid choice!");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("calculated area is: " + shape.computeArea());
+
+        scanner.close();
+    }
+}
