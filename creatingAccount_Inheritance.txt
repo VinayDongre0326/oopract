@@ -1,0 +1,74 @@
+//Class Name BankAccountTest
+class Account {
+    private String customerName;
+    protected double balance;
+    private String accountNumber;
+    private String accountType;
+    public Account(String customerName, double balance, String accountNumber, String accountType) {
+        this.customerName = customerName;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+    }
+    public String getCustomerName() {
+        return customerName;
+    }
+    public double getBalance() {
+        return balance;
+    }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    public String getAccountType() {
+        return accountType;
+    }
+    public void displayAccountDetails() {
+        System.out.println("Customer Name: " + customerName);
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Type: " + accountType);
+        System.out.println("Available Balance: $" + balance);
+    }
+}
+class SavingAccount extends Account {
+    private double interestRate;
+    public SavingAccount(String customerName, double balance, String accountNumber, double interestRate) {
+        super(customerName, balance, accountNumber, "Saving");
+        this.interestRate = interestRate;
+    }
+    public void depositInterest() {
+        double interest = getBalance() * interestRate / 100;
+        double newBalance = getBalance() + interest;
+        System.out.println("Depositing interest of $" + interest + " to account.");
+        super.balance = newBalance; // Update the balance in the superclass
+    }
+}
+
+class CurrentAccount extends Account {
+    private double penalty;
+    public CurrentAccount(String customerName, double balance, String accountNumber, double penalty) {
+        super(customerName, balance, accountNumber, "Current");
+        this.penalty = penalty;
+    }
+    public void imposePenalty() {
+        if (getBalance() < penalty) {
+            System.out.println("Balance insufficient to impose penalty.");
+        } else {
+            double newBalance = getBalance() - penalty;
+            System.out.println("Imposing penalty of $" + penalty + " on account.");
+            super.balance = newBalance; // Update the balance in the superclass
+        }   }   }
+public class BankAccountTest {
+    public static void main(String[] args) {
+        SavingAccount savingAccount = new SavingAccount("Vinay", 1000.0, "S001", 5);
+        CurrentAccount currentAccount = new CurrentAccount("Vedant", 500.0, "C001", 50);
+        System.out.println("Initial Account Details:");
+        savingAccount.displayAccountDetails();
+        currentAccount.displayAccountDetails();
+        System.out.println();
+        savingAccount.depositInterest();
+        currentAccount.imposePenalty();
+        System.out.println("\nUpdated Account Details:");
+        savingAccount.displayAccountDetails();
+        currentAccount.displayAccountDetails();
+    }
+}

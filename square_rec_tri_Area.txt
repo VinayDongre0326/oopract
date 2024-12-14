@@ -1,0 +1,107 @@
+square_rec_tri_Area
+//class Name Main
+import java.util.Scanner;
+
+interface Shape
+{
+	public void accept();
+	public float area();
+	public float perimeter();
+}
+
+class Rectangle implements Shape
+{
+	float Base,Height,x,y;
+	public void accept()
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter base of Rectangle");
+		Base = sc.nextFloat();
+		System.out.println("enter height of Rectangle");
+		Height = sc.nextFloat();
+	}
+	public float area()
+	{
+		y=Base*Height;
+		System.out.println("Area is =" + y);
+		return (Base*Height);
+	}
+	
+	public float perimeter()
+	{   x=(2*Base)+(2*Height);
+		System.out.println("Perimeter is ="+ x);
+		return ((2*Base)+(2*Height));
+	}
+}
+
+class Square implements Shape
+{
+	float Side,v,w;
+	public void accept()
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter Side for Square");
+		Side = sc.nextFloat();
+		
+		
+	}
+	public float area()
+	{   v= Side*Side;		
+		System.out.println("area of Square= "+ v);
+
+		return (Side*Side);
+	}
+	public float perimeter()
+	{   w= 4*Side;
+	System.out.println("perimeter of Square= "+ w);
+		return ((4*Side));
+	}
+}
+
+class Triangle implements Shape
+{
+	double Base,Height,a,b,c,g,h;
+	public void accept()
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter base of Triangle");
+		Base = sc.nextFloat();
+		System.out.println("enter height of Triangle");
+		Height = sc.nextFloat();
+		System.out.println("enter side1 of Triangle");
+		a = sc.nextFloat();
+		System.out.println("enter side2 of Triangle");
+		b = sc.nextFloat();
+		System.out.println("enter side 3 of Triangle");
+		c = sc.nextFloat();
+		
+	}
+	public float area()
+	{  g=0.5*Base*Height;
+		System.out.println("Area of Triangle"+ g);
+		return (float) (0.5*Base*Height);
+	}
+	public float perimeter()
+	{   h=a+b+c;
+		System.out.println("Perimeter of Triangle" + h);
+		return(float)( a+b+c);
+}  }
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Rectangle r = new Rectangle();
+		r.accept();
+		r.area();
+		r.perimeter();
+		
+		Square s = new Square();
+		s.accept();
+		s.area();
+		s.perimeter();
+		
+		Triangle t = new Triangle ();
+		t.accept();
+		t.area();
+		t.perimeter();
+	}       }
